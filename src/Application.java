@@ -1,12 +1,20 @@
 import Runnables.Factorization;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException {
-        int numThreads = 100000;
 
-        measureTime();
+        PerformanceMeasurment perfMeas = new PerformanceMeasurment();
+        List<PerformanceResult> performanceResultList = perfMeas.measureTime();
+
+        OutputHandler outputHandler = new OutputHandler();
+        outputHandler.printMeasurmentSeries(performanceResultList, "Heading");
+
+
+        //measureTime();
 //        long elapsedTime = startThreads(numThreads, false);
 //        System.out.println("\n\nPlatform Threads:");
 //        String formattedElapsedTime = getReadableElapsedTime(elapsedTime);
@@ -19,23 +27,23 @@ public class Application {
     }
 
     private static void measureTime() throws InterruptedException {
-        int numOfRepeats = 20;
+        int numRepeats = 20;
         int[] numsThreads = {6, 50, 100, 1000};
 
         for (int numThreads : numsThreads) {
             long totalTime = 0;
-            for (int i = 0; i < numOfRepeats; i++) {
+            for (int i = 0; i < numRepeats; i++) {
                 totalTime += startThreads(numThreads, false);
             }
-            long avgTime = totalTime / numOfRepeats;
+            long avgTime = totalTime / numRepeats;
             String formattedAvgTime = getReadableElapsedTime(avgTime);
             System.out.println(numThreads + " platform avg: " + formattedAvgTime);
 
              totalTime = 0;
-            for (int i = 0; i < numOfRepeats; i++) {
+            for (int i = 0; i < numRepeats; i++) {
                 totalTime += startThreads(numThreads, true);
             }
-            avgTime = totalTime / numOfRepeats;
+            avgTime = totalTime / numRepeats;
             formattedAvgTime = getReadableElapsedTime(avgTime);
             System.out.println(numThreads + " virtual avg: " + formattedAvgTime);
         }
