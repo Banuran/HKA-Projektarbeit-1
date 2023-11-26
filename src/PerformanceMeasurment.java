@@ -2,7 +2,6 @@ import Runnables.Factorization;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 enum ThreadType {
     PLATFORM,
@@ -11,7 +10,7 @@ enum ThreadType {
 
 public class PerformanceMeasurment {
 
-    public List<PerformanceResult> measureTime() throws InterruptedException {
+    public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
         int numRepeats = 20;
         int[] numsThreads = {6, 50, 100, 1000};
         List<PerformanceResult> performanceResultList = new ArrayList<>();
