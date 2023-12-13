@@ -4,23 +4,25 @@ import java.util.List;
 public class OutputHandler {
 
     public void printMeasurmentSeries(List<PerformanceResult> series, String heading) {
-        System.out.format("+---------+----------------------------+----------------------------+%n");
-        System.out.format("| %-65s |%n", heading);
-        System.out.format("+---------+----------------------------+----------------------------+%n");
-        System.out.format("| Threads | avg time Platform Thread   | avg time Virtual Thread    |%n");
-        System.out.format("+---------+----------------------------+----------------------------+%n");
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+        System.out.format("| %-94s |%n", heading);
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+        System.out.format("| Threads | avg time Platform Thread   | avg time Virtual Thread    | avg time Pooled Thread     |%n");
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
 
-        for (int i = 0; i < series.size(); i += 2) {
+        for (int i = 0; i < series.size(); i += 3) {
             PerformanceResult result1 = series.get(i);
             PerformanceResult result2 = series.get(i+1);
-            if (result1.numThreads != result2.numThreads ||
+            PerformanceResult result3 = series.get(i+2);
+            if (result1.numThreads != result2.numThreads || result1.numThreads != result3.numThreads ||
                     result1.threadType != ThreadType.PLATFORM ||
-                    result2.threadType != ThreadType.VIRTUAL) throw new RuntimeException("List not sorted");
+                    result2.threadType != ThreadType.VIRTUAL ||
+                    result3.threadType != ThreadType.POOLED) throw new RuntimeException("List not sorted");
 
-            System.out.format("| %7d | %26s | %26s |%n", result1.numThreads, this.getTimeReadable(result1.avgExecutionTime), this.getTimeReadable(result2.avgExecutionTime));
+            System.out.format("| %7d | %26s | %26s | %26s |%n", result1.numThreads, this.getTimeReadable(result1.avgExecutionTime), this.getTimeReadable(result2.avgExecutionTime), this.getTimeReadable(result3.avgExecutionTime));
         }
 
-        System.out.format("+---------+----------------------------+----------------------------+%n");
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
     }
 
     private String getTimeReadable(long time) {

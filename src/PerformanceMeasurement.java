@@ -2,17 +2,21 @@ import Runnables.Factorization;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 enum ThreadType {
     PLATFORM,
-    VIRTUAL
+    VIRTUAL,
+    POOLED
 }
 
 public class PerformanceMeasurement {
 
     public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
         int numRepeats = 20;
-        int[] numsThreads = {6, 50, 100, 1000};
+        int[] numsThreads = {6, 12, 50, 100, 1000, 10000};
         List<PerformanceResult> performanceResultList = new ArrayList<>();
 
         for (int numThreads : numsThreads) {
@@ -31,6 +35,14 @@ public class PerformanceMeasurement {
     }
 
     private long startThreads(int numThreads, ThreadType threadType) throws InterruptedException {
+        if (threadType == ThreadType.POOLED) {
+            return startPooledThreads(numThreads);
+        } else {
+            return startSimpleThreads(numThreads, threadType);
+        }
+    }
+
+    private long startSimpleThreads(int numThreads, ThreadType threadType) throws InterruptedException {
         Thread[] threads = new Thread[numThreads];
 
         long start = System.nanoTime();
@@ -48,6 +60,27 @@ public class PerformanceMeasurement {
             thread.join();
         }
 
+        long end = System.nanoTime();
+
+        return end-start;
+    }
+
+    private long startPooledThreads(int numThreads) throws InterruptedException {
+
+        long start = System.nanoTime();
+        ExecutorService executorService = Executors.newFixedThreadPool(12);
+
+        for (int i = 0; i < numThreads; i++) {
+            executorService.submit(new Factorization());
+        }
+
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            System.out.println("SHUTDOWN NOW!");
+        }
         long end = System.nanoTime();
 
         return end-start;
