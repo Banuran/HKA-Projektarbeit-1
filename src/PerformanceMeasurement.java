@@ -8,7 +8,7 @@ enum ThreadType {
     VIRTUAL
 }
 
-public class PerformanceMeasurment {
+public class PerformanceMeasurement {
 
     public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
         int numRepeats = 20;
