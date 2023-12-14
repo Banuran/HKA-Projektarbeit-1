@@ -10,5 +10,6 @@ public class Application {
 
         OutputHandler outputHandler = new OutputHandler();
         outputHandler.printMeasurementSeries(performanceResultList, "Comparison of needed time for different Thread types");
+        outputHandler.printRelativeChange(performanceResultList, "Relative change for different Thread types");
     }
 }

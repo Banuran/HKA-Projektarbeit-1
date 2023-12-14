@@ -16,7 +16,7 @@ public class PerformanceMeasurement {
 
     public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
         int numRepeats = 20;
-        int[] numsThreads = {6, 12, 50, 100, 1000, 10000};
+        int[] numsThreads = {10, 100, 1000, 10000, 100000};
         List<PerformanceResult> performanceResultList = new ArrayList<>();
 
         for (int numThreads : numsThreads) {

@@ -42,4 +42,33 @@ public class OutputHandler {
 
         return formattedTime.toString().trim();
     }
+
+    public void printRelativeChange(List<PerformanceResult> series, String heading) {
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+        System.out.format("| %-94s |%n", heading);
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+        System.out.format("| Threads | avg time Platform Thread   | avg time Virtual Thread    | avg time Pooled Thread     |%n");
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+
+        System.out.format("| %7d | %26s | %26s | %26s |%n", 1, 1, 1, 1);
+
+        int tN = ThreadType.values().length;
+
+        for (int i = tN; i < series.size(); i += tN) {
+            double[] change = new double[tN];
+
+            for (int j = 0; j < tN; j += 1) {
+                long current = series.get(j+i).avgExecutionTime;
+                long prev = series.get(j+i-tN).avgExecutionTime;
+                change[j] = (double) series.get(j + i).avgExecutionTime / series.get(j+i-tN).avgExecutionTime;
+            }
+            int current = series.get(i).numThreads;
+            int prev = series.get(i-tN).numThreads;
+            double numChange = (double) series.get(i).numThreads / series.get(i-tN).numThreads;
+
+            System.out.format("| %7.2f | %26.2f | %26.2f | %26.2f |%n", numChange, change[0], change[1], change[2]);
+        }
+
+        System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
+    }
 }
