@@ -3,7 +3,7 @@ import java.util.List;
 
 public class OutputHandler {
 
-    public void printMeasurmentSeries(List<PerformanceResult> series, String heading) {
+    public void printMeasurementSeries(List<PerformanceResult> series, String heading) {
         System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
         System.out.format("| %-94s |%n", heading);
         System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");

@@ -9,6 +9,6 @@ public class Application {
         List<PerformanceResult> performanceResultList = perfMeas.startMeasurementSeries();
 
         OutputHandler outputHandler = new OutputHandler();
-        outputHandler.printMeasurmentSeries(performanceResultList, "Comparison of needed time for different Thread types");
+        outputHandler.printMeasurementSeries(performanceResultList, "Comparison of needed time for different Thread types");
     }
 }
