@@ -6,6 +6,9 @@ public class Application {
 //
 //        System.out.println(cores);
         InteractionHandler interactionHandler = new InteractionHandler();
+        PerformanceMeasurementConfig config = new PerformanceMeasurementConfig();
+
+        interactionHandler.changeConfigRequest(config);
 
         PerformanceMeasurement perfMeas = new PerformanceMeasurement(interactionHandler);
         List<PerformanceResult> performanceResultList = perfMeas.startMeasurementSeries();
