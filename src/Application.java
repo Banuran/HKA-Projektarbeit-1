@@ -5,7 +5,9 @@ public class Application {
 //        int cores = Runtime.getRuntime().availableProcessors();
 //
 //        System.out.println(cores);
-        PerformanceMeasurement perfMeas = new PerformanceMeasurement();
+        InteractionHandler interactionHandler = new InteractionHandler();
+
+        PerformanceMeasurement perfMeas = new PerformanceMeasurement(interactionHandler);
         List<PerformanceResult> performanceResultList = perfMeas.startMeasurementSeries();
 
         OutputHandler outputHandler = new OutputHandler();
