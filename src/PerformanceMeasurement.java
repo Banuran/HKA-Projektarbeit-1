@@ -15,16 +15,18 @@ enum ThreadType {
 public class PerformanceMeasurement {
 
     private InteractionHandler interactionHandler;
+    private PerformanceMeasurementConfig config;
 
-    public PerformanceMeasurement(InteractionHandler interactionHandler) {
+    public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
+        this.config = config;
     }
 
     public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
 //        int numRepeats = 20;
 //        int[] numsThreads = {10, 100, 1000, 10000, 100000};
-        int numRepeats = 5;
-        int[] numsThreads = {10, 100};
+        int numRepeats = config.getNumRepeats();
+        int[] numsThreads = config.getNumsThreads();
         List<PerformanceResult> performanceResultList = new ArrayList<>();
 
         int totalRuns = numRepeats * numsThreads.length * ThreadType.values().length;

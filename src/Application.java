@@ -8,9 +8,9 @@ public class Application {
         InteractionHandler interactionHandler = new InteractionHandler();
         PerformanceMeasurementConfig config = new PerformanceMeasurementConfig();
 
-        interactionHandler.changeConfigRequest(config);
+        config = interactionHandler.changeConfigRequest(config);
 
-        PerformanceMeasurement perfMeas = new PerformanceMeasurement(interactionHandler);
+        PerformanceMeasurement perfMeas = new PerformanceMeasurement(interactionHandler, config);
         List<PerformanceResult> performanceResultList = perfMeas.startMeasurementSeries();
 
         OutputHandler outputHandler = new OutputHandler();
