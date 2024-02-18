@@ -14,8 +14,8 @@ enum ThreadType {
 
 public class PerformanceMeasurement {
 
-    private InteractionHandler interactionHandler;
-    private PerformanceMeasurementConfig config;
+    private final InteractionHandler interactionHandler;
+    private final PerformanceMeasurementConfig config;
 
     public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
@@ -93,7 +93,7 @@ public class PerformanceMeasurement {
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
             executorService.shutdownNow();
-            System.out.println("SHUTDOWN NOW!");
+            throw e;
         }
         long end = System.nanoTime();
 

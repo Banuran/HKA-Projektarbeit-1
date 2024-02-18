@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class InteractionHandler {
 
-    private String remainingRunsText = "Remaining Runs:";
+    private final String remainingRunsText = "Remaining Runs:";
     private int remainingRuns;
 
     public PerformanceMeasurementConfig changeConfigRequest(PerformanceMeasurementConfig config) {
