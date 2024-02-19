@@ -1,14 +1,16 @@
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class InteractionHandler {
 
+    private final static Scanner scanner = new Scanner(System.in);
     private final String remainingRunsText = "Remaining Runs:";
     private int remainingRuns;
 
     public PerformanceMeasurementConfig changeConfigRequest(PerformanceMeasurementConfig config) {
         System.out.format("Default config:%n%s%n%n", config.toString());
 
-        Scanner scanner = new Scanner(System.in);
         String userInput;
         do {
             System.out.format("Do you want to change the config? (Y)es / (N)o%n");
@@ -25,7 +27,6 @@ public class InteractionHandler {
         }
 
         System.out.format("%n");
-        scanner.close();
 
         return config;
     }
@@ -87,6 +88,30 @@ public class InteractionHandler {
         }
 
         return config;
+    }
+
+    public void saveResultsToFileRequest(List<PerformanceResult> performanceResultList) throws IOException {
+
+        String userInput;
+        do {
+            System.out.println("Do you want to save the results to a file? (Y)es / (N)o");
+            userInput = scanner.nextLine();
+            if (!userInput.isEmpty()) userInput = userInput.substring(0, 1);
+        } while (!userInput.equalsIgnoreCase("y") && !userInput.equalsIgnoreCase("n"));
+
+        if (userInput.equalsIgnoreCase("y")) {
+            // Display default and ask for a filename
+            System.out.format("Default filepath: %s%n", ExportHandler.getDefaultFilepath());
+
+            System.out.println("Enter a filepath or press Enter to use the default:");
+            String filepath = scanner.nextLine().trim();
+
+            if (filepath.isEmpty()) {
+                filepath = null; // Default filename
+            }
+
+            ExportHandler.exportToCSV(performanceResultList, filepath);
+        }
     }
 
     public void initRemainingRuns(int totalNumberOfRuns) {
