@@ -34,12 +34,12 @@ public class InteractionHandler {
     public PerformanceMeasurementConfig changeConfigNumsThreadsRequest(PerformanceMeasurementConfig config, Scanner scanner) {
         while (true) {
             System.out.println("Change Number of threads");
-            System.out.println("Enter a comma-separated list of integers or (D)efault:");
+            System.out.println("Enter a comma-separated list of integers or press enter to use the default:");
 
             String userInput = scanner.nextLine();
             String firstChar = !userInput.isEmpty() ? userInput.substring(0, 1) : "";
 
-            if (firstChar.equalsIgnoreCase("d")) {
+            if (firstChar.isEmpty()) {
                 break;
             } else {
                 String[] inputValues = userInput.split(",");
@@ -69,12 +69,12 @@ public class InteractionHandler {
     public PerformanceMeasurementConfig changeNumRepeatsRequest(PerformanceMeasurementConfig config, Scanner scanner) {
         while (true) {
             System.out.println("Change Number of repeats");
-            System.out.println("Enter an integer or (D)efault:");
+            System.out.println("Enter an integer or press enter to use the default:");
 
             String userInput = scanner.nextLine();
             String firstChar = !userInput.isEmpty() ? userInput.substring(0, 1) : "";
 
-            if (firstChar.equalsIgnoreCase("d")) {
+            if (firstChar.isEmpty()) {
                 break;
             } else {
                 try {
