@@ -1,10 +1,14 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ExportHandler {
 
-    private final static String defaultFilepath = "ThreadComparisonResult.csv";
+    private final static String defaultFilepathWithoutEnding = "ThreadComparisonResult";
+    private final static String defaultFilepathEnding = ".csv";
+    private final static String defaultFilepath = defaultFilepathWithoutEnding + defaultFilepathEnding;
 
     public static void exportToCSV(List<PerformanceResult> performanceResultList, String filePath) throws IOException {
         if (performanceResultList == null || performanceResultList.isEmpty()) {
@@ -13,7 +17,10 @@ public class ExportHandler {
 
         // set default fileName if none is provided
         if (filePath == null || filePath.trim().isEmpty()) {
-            filePath = defaultFilepath;
+            filePath = defaultFilepathWithoutEnding;
+            filePath += "_";
+            filePath += new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
+            filePath += defaultFilepathEnding;
         }
 
         try (FileWriter writer = new FileWriter(filePath)) {
