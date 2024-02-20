@@ -16,6 +16,7 @@ public class PerformanceMeasurement {
 
     private final InteractionHandler interactionHandler;
     private final PerformanceMeasurementConfig config;
+    private final int cores = Runtime.getRuntime().availableProcessors();
 
     public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
@@ -82,7 +83,7 @@ public class PerformanceMeasurement {
     private long startPooledThreads(int numThreads) throws InterruptedException {
 
         long start = System.nanoTime();
-        ExecutorService executorService = Executors.newFixedThreadPool(12);
+        ExecutorService executorService = Executors.newFixedThreadPool(cores);
 
         for (int i = 0; i < numThreads; i++) {
             executorService.submit(new Factorization());
