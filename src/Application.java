@@ -3,9 +3,7 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException, IOException {
-//        int cores = Runtime.getRuntime().availableProcessors();
-//
-//        System.out.println(cores);
+
         InteractionHandler interactionHandler = new InteractionHandler();
         PerformanceMeasurementConfig config = new PerformanceMeasurementConfig();
 
