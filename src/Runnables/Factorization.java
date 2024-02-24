@@ -11,7 +11,6 @@ public class Factorization implements Runnable {
             if(zahl % teiler == 0) {
                 zahl /= teiler;
                 teilerMax = (int) Math.sqrt(zahl);
-                //System.out.print("Z\b");
             }
             else {
                 teiler++;
