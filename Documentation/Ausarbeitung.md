@@ -35,15 +35,17 @@ Zum Abschluss des Programms können die Ergebnisse noch im CSV-Format in einer D
 Um die Ergebnisse auszuwerten, wird die exportierte CSV-Datei in ein Python Jupyter Notebook eingelesen. Die Daten werden dann in einem Diagramm visualisiert. Für jeden Threadtyp wird eine eigene Kurve in das Diagramm eingezeichnet. Auf der x-Achse werden die Durchläufe anhand der Anzahl der gestarteten Threads abgetragen. Da bei den höheren Werten zunehmend größere Abstände vorhanden sind, wird die x-Achse der besseren Übersichtlichkeit wegen, mit gleichmäßigen Abständen skaliert. Auf der y-Achse wird die ermittelte durchschnittliche Laufzeit abgetragen.
 
 ![Vergleich aller Threadtypen](images/data/System1_R1_all_spaced.png)<br>
+*Vergleich der Performance aller Threadtypen.*
 
 In diesem Diagramm ist deutlich zu sehen, dass die benötigte Laufzeit bei den Betriebssystemthreads (blau) sehr viel schneller ansteigt, als bei den anderen beiden Typen. Dadurch sind die Unterschiede zwischen den anderen Typen kaum sichtbar. Lediglich bei der höchsten Anzahl an Threads ist erkennbar, dass die Kurven auseinanderlaufen. Daher werden als nächstes nur die virtuellen Threads und die Threadpools betrachtet.
 
 ![Vergleich zwischen Virtual und Pooled Threads](images/data/System1_R1_part_spaced.png)<br>
+*Vergleich der Performance von Virtual Threads und Threadpools.*
 
 Betrachtet man nur die Kurven zu virtuellen Threads und zu den Threadpools können die Unterschiede zwischen diesen besser erkannt werden. Bei einer großen Anzahl an Threads liegt der Unterschied zwischen den beiden Threadtypen bei mehreren hundert Millisekunden. Der Unterschied zwischen den Typen nimmt mit steigender Anzahl von Threads zu. Hier haben Threadpools (orange) Vorteile und weisen die geringere Laufzeit auf.
 
 ![Ausschnitt aus dem Vergleich zwischen Virtual und Pooled Threads](images/data/System1_R1_part_short_spaced.png)<br>
-*abc*
+*Auschnitt aus dem Vergleich der Performance von Virtual Threads und Threadpools.*
 
 Betrachtet man einen kleineren Ausschnitt des Diagramms, kann man sehen, dass dies nicht für alle Messpunkte gilt. Für eine geringe Anzahl an Threads liegt der Unterschied zwischen diesen Threadtypen bei ungefähr 2ms. Dabei weisen, im Gegensatz zur höheren Threadzahl, die virtuellen Threads die bessere Performance auf.
 
@@ -59,6 +61,19 @@ Nach der Installation kann dann die native Anwendung generiert werden. Dafür st
 
 nur kleiner Ausschnitt betrachtet, angenommen Unterschied liegt in Initialisierung
 
+Bei der Umwandlung der jar Datei in eine native Windowsanwendung kam es zunächst zu Problemen. Soll GraalVM native Anwendungen für Windows erstellen, wird dafür wie beschrieben zusätzlich eine Installation von Visual Studio. Die ersten Versuche eine native Anwendung zu erstellen, schlugen jedoch fehl. Die folgende Fehlermeldung wurde angezeigt.
+
+![GraalVM_Fehlermeldung_Windows](images/graalVM/error_windows.png)<br>
+*Fehlermeldung beim Erstellen eines nativen Images auf Windows.*
+
+GraalVM kann das installierte Visual Studio nicht finden. 
+
 Graal VM: Besondere prompt notwendig, falsche Rechte wegen USB-Stick: musste erst rüber kopiert werden und dann auf ausführbar gesetzt werden
 
 ## Fazit
+
+## Ausblick
+System 1 CPU auf 100%
+
+System 2 exe CPU auf 35-40%
+jar auf 60-85%
