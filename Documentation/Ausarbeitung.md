@@ -6,13 +6,13 @@ In dieser Arbeit werden verschiedene Threadtypen, die in Java bereitgestellt wer
 
 ## Eckdaten der benutzten Systeme
 
-|                | System 1            | System 2   | System 3         |
-|----------------|---------------------|------------|------------------|
-| Art            | Laptop              | Laptop     | Desktop-PC       |
-| Betriebssystem | Windows 11          | Linux Mint | Windows 11       |
-| Version        | 23H2 22631.3155     |            | 23H2 22631.3007  |
-| CPU            | Intel Core i5-8250U |            | AMD Ryzen 5 3600 |
-| CPU-Kerne      | 4                   |            | 6                |
+|                 | System 1            | System 2   | System 3         |
+|-----------------|---------------------|------------|------------------|
+| Art des Systems | Laptop              | Laptop     | Desktop-PC       |
+| Betriebssystem  | Windows 11          | Linux Mint | Windows 11       |
+| Version         | 23H2 22631.3155     |            | 23H2 22631.3007  |
+| CPU             | Intel Core i5-8250U |            | AMD Ryzen 5 3600 |
+| CPU-Kerne       | 4                   |            | 6                |
 
 ## Erläuterung des Programms
 
@@ -141,7 +141,7 @@ Zu der Frage, ob virtuelle Threads oder Threadpools eingesetzt werden sollten, l
 
 Dabei ist auch zu bedenken, dass die Verwaltung eines Threadpools etwas aufwändiger ist als virtuelle Threads. Während virtuelle Threads nach Bedarf erstellt werden können, muss der Threadpool einmalig initialisiert werden und anschließend in einer Variablen gespeichert werden. Um neue Threads auszuführen, muss zuerst auf den bereits existierenden Threadpool zugegriffen werden. System 3 zeigt, dass mit zunehmender Leistung des Systems die Unterschiede zwischen diesen beiden Typen zunehmend verschwinden. Für Serveranwendungen könnte diese Fragestellung daher irrelevant sein. 
 
-Hier besteht ein Ansatzpunkt für weitergehende Untersuchungen. Es könnte untersucht werden, ob sich diese Vermutung für Systeme die auf starke Nebenläufigkeit ausgelegt sind bestätigt. Je nach Quelle laufen ein großer Teil oder die Mehrheit der Server mit dem Betriebssystem Linux. Für Serveranwendungen könnte sich daher ein genauerer Blick auf die Performance unter Linux lohnen. Obwohl das im Test verwendete System 2 mit Linux schwächer als System 1 war, war der Unterschied zwischen virtuellen Threads und Threadpools geringer als auf System 1. Auf aktuellerer Hardware könnten die Unterschiede zwischen diesen beiden Threadtypen ebenfalls irrelevant sein. Zudem könnte untersucht werden, ob es Unterschiede zwischen verschiedenen Distributionen gibt.
+Hier besteht ein Ansatzpunkt für weitergehende Untersuchungen. Es könnte untersucht werden, ob sich diese Vermutung für Systeme die auf starke Nebenläufigkeit ausgelegt sind bestätigt. Je nach Quelle laufen ein großer Teil oder die Mehrheit der Server mit dem Betriebssystem Linux ([[1]](https://6sense.com/tech/server-and-desktop-os), [[2]](https://www.t4.ai/industry/server-operating-system-market-share), [[3]](https://www.fortunebusinessinsights.com/server-operating-system-market-106601)). Für Serveranwendungen könnte sich daher ein genauerer Blick auf die Performance unter Linux lohnen. Obwohl das im Test verwendete System 2 mit Linux schwächer als System 1 war, war der Unterschied zwischen virtuellen Threads und Threadpools geringer als auf System 1. Auf aktuellerer Hardware könnten die Unterschiede zwischen diesen beiden Threadtypen ebenfalls irrelevant sein. Zudem könnte untersucht werden, ob es Unterschiede zwischen verschiedenen Distributionen gibt.
 
 GraalVM
 eventeull Optionen? weiterführende Unteruschung
