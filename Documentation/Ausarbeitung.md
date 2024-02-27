@@ -135,6 +135,17 @@ Die Ergebnisse für virtuelle Threads und Threadpools haben sich durch den Einsa
 
 ## Fazit
 
+Nach Auswertung der Ergebnisse muss vom Einsatz von Betriebssystemthreads abgeraten werden. Diese wiesen in allen Systemen eine deutlich schlechtere Laufzeit auf als die alternativen Threadtypen. Bestehende Anwendungen, die diese nutzen, sollten umgestellt werden. Aufgrund der ähnlichen Verwendung bieten sich hier die virtuellen Threads an. 
+
+Zu der Frage, ob virtuelle Threads oder Threadpools eingesetzt werden sollten, lässt sich leider keine klare Aussage treffen. Die Ergebnisse von System 1 und System 2 zeigen das Threadpools vor allem bei hohen Threadzahlen eine bessere Performance aufweisen. Bei einer niedrigeren Anzahl an Threads weisen jedoch virtuelle Threads eine leicht bessere Performance auf. Bei Anwendungen bei denen mit hohen Spitzen an Threads zu rechnen könnte es sich daher lohnen mit einem einmal erstellten Threadpool zu arbeiten. Anwendungen die auf ihre Laufzeit gesehen viele Threads starten, diese sich jedoch über die Laufzeit verteilen, könnten dagegen von virtuellen Threads profitieren.
+
+Dabei ist auch zu bedenken, dass die Verwaltung eines Threadpools etwas aufwändiger ist als virtuelle Threads. Während virtuelle Threads nach Bedarf erstellt werden können, muss der Threadpool einmalig initialisiert werden und anschließend in einer Variablen gespeichert werden. Um neue Threads auszuführen, muss zuerst auf den bereits existierenden Threadpool zugegriffen werden. System 3 zeigt, dass mit zunehmender Leistung des Systems die Unterschiede zwischen diesen beiden Typen zunehmend verschwinden. Für Serveranwendungen könnte diese Fragestellung daher irrelevant sein. 
+
+Hier besteht ein Ansatzpunkt für weitergehende Untersuchungen. Es könnte untersucht werden, ob sich diese Vermutung für Systeme die auf starke Nebenläufigkeit ausgelegt sind bestätigt. Je nach Quelle laufen ein großer Teil oder die Mehrheit der Server mit dem Betriebssystem Linux. Für Serveranwendungen könnte sich daher ein genauerer Blick auf die Performance unter Linux lohnen. Obwohl das im Test verwendete System 2 mit Linux schwächer als System 1 war, war der Unterschied zwischen virtuellen Threads und Threadpools geringer als auf System 1. Auf aktuellerer Hardware könnten die Unterschiede zwischen diesen beiden Threadtypen ebenfalls irrelevant sein. Zudem könnte untersucht werden, ob es Unterschiede zwischen verschiedenen Distributionen gibt.
+
+GraalVM
+eventeull Optionen? weiterführende Unteruschung
+
 ## Ausblick
 System 1 CPU auf 100%
 
@@ -142,3 +153,5 @@ System 2 exe CPU auf 35-40%
 jar auf 60-85%
 
 noch Part zu Problem einfügen
+
+Fazit Beispiel für virtuelle Threads und Betriebssystemthreads einfügen
