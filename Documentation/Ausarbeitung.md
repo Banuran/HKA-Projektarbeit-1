@@ -8,6 +8,7 @@ In dieser Arbeit werden verschiedene Threadtypen, die in Java bereitgestellt wer
 
 |                | System 1            | System 2   | System 3         |
 |----------------|---------------------|------------|------------------|
+| Art            | Laptop              | Laptop     | Desktop-PC       |
 | Betriebssystem | Windows 11          | Linux Mint | Windows 11       |
 | Version        | 23H2 22631.3155     |            | 23H2 22631.3007  |
 | CPU            | Intel Core i5-8250U |            | AMD Ryzen 5 3600 |
@@ -53,7 +54,7 @@ In diesem Diagramm ist deutlich zu sehen, dass die benötigte Laufzeit bei den B
 ![Vergleich zwischen Virtual und Pooled Threads](images/data/System1_R1_part_spaced.png)<br>
 *Vergleich der Performance von Virtual Threads und Threadpools (System 1).*
 
-Betrachtet man nur die Kurven zu virtuellen Threads und zu den Threadpools können die Unterschiede zwischen diesen besser erkannt werden. Bei einer großen Anzahl an Threads liegt der Unterschied zwischen den beiden Threadtypen bei mehreren hundert Millisekunden. Der Unterschied zwischen den Typen nimmt mit steigender Anzahl von Threads zu. Hier haben Threadpools (orange) Vorteile und weisen die geringere Laufzeit auf.
+Betrachtet man nur die Kurven zu virtuellen Threads und zu den Threadpools können die Unterschiede zwischen diesen besser erkannt werden. Bei einer großen Anzahl an Threads liegt der Unterschied zwischen den beiden Threadtypen bei mehreren hundert Millisekunden. Der Unterschied zwischen den Typen nimmt mit steigender Anzahl von Threads zu. Hier haben Threadpools (orange) Vorteile und weisen die geringere Laufzeit auf. Der Unterschied beträgt mehr als 400ms für die höchste Threadzahl.
 
 ![Ausschnitt aus dem Vergleich zwischen Virtual und Pooled Threads](images/data/System1_R1_part_short_spaced.png)<br>
 *Ausschnitt aus dem Vergleich der Performance von Virtual Threads und Threadpools (System 1).*
@@ -73,7 +74,22 @@ Wie auch bei System 1 sind die Betriebssystemthreads wesentlich weniger performa
 ![Ausschnitt aus dem Vergleich zwischen Virtual und Pooled Threads](images/data/System3_part_short_spaced.png)<br>
 *Ausschnitt aus dem Vergleich der Performance von Virtual Threads und Threadpools (System 3).*
 
-Auch die benötigte Zeit für die virtuellen Threads ist geringer als bei System 1. Die Performance von virtuellen Threads und Threadpools ist dabei praktisch gleich. Der Unterschied beträgt nur wenige Millisekunden. Obwohl es sich bei System 3 um das stärkere System handelt und der Unterschied bei den Betriebssystemthreads 20s beträgt, ist die benötigte Zeit für Threadpools auf beiden Systemen ungefähr gleich.
+Auch die benötigte Zeit für die virtuellen Threads ist geringer als bei System 1. Die Performance von virtuellen Threads und Threadpools ist dabei praktisch gleich. Der Unterschied beträgt nur wenige Millisekunden. Obwohl es sich bei System 3 um das stärkere System handelt und der Unterschied bei den Betriebssystemthreads bereits im Bereich von mehreren Sekunden liegt, ist die benötigte Zeit für Threadpools auf beiden Systemen ungefähr gleich.
+
+Die Ergebnisse von System 2 ähneln denen der anderen beiden Systemen. Die tatsächlichen Werte sind insgesamt höher, was auch zu erwarten war, da es sich bei System 2 um das älteste und schwächste System handelt.
+
+![Vergleich aller Threadtypen](images/data/System2_all_spaced.png)<br>
+*Vergleich der Performance aller Threadtypen (System 2).*
+
+Auch auf System 2 benötigen die Betriebssystemthreads mehr Laufzeit als die alternativen Threadtypen.
+
+![Vergleich zwischen Virtual und Pooled Threads](images/data/System2_part_spaced.png)<br>
+*Vergleich der Performance von Virtual Threads und Threadpools (System 2).*
+
+![Ausschnitt aus dem Vergleich zwischen Virtual und Pooled Threads](images/data/System2_part_short2_spaced.png)<br>
+*Ausschnitt aus dem Vergleich der Performance von Virtual Threads und Threadpools (System 2).*
+
+Die Werte zwischen virtuellen Threads und Threadpools laufen wie bei System 1 mit einer höheren Threadzahl auseinander. Der Unterschied ist jedoch nicht so stark ausgeprägt wie bei System 1 und liegt bei der höchsten Threadzahl bei ungefähr 250ms. Auch bei diesem System ist zu beobachten, dass virtuelle Threads bei einer niedrigeren Anzahl an Threads eine bessere Performance aufweisen und dies sich erst mit steigender Threadzahl umkehrt. Aufgrund der höheren Werte wurde ein kleinerer Ausschnitt gewählt als bei den anderen beiden Systemen um das Diagramm einfacher auswerten zu können.
 
 ## GraalVM
 
@@ -102,7 +118,20 @@ Auch beim Erstellen der nativen Anwendung auf Linux kam es zu Problemen. Die jar
 Entgegen der Erwartung waren die Ergebnisse mit der durch GraalVM generierten nativen Anwendung auf Windows in allen Versuchen schlechter als mit der Jar-Datei. Dies kann auch im folgenden Diagramm gesehen werden. Das Diagramm zeigt den Vergleich zwischen den virtuellen Threads und den Threadpools auf System 1 (Windows). Auch auf System 3 waren die Ergebnisse mit der nativen Anwendung schlechter.
 
 ![GraalVM Vergleich zwischen Virtual und Pooled Threads](images/graalVM/System1_R1_part_spaced.png)<br>
-*Ergebnisse für Virtual Threads und Threadpools mit der nativen Anwendung (System 1).*
+*Ergebnisse für Virtual Threads und Threadpools mit einer nativen Anwendung unter Windows (System 1).*
+
+Im Gegensatz dazu stehen die Ergebnisse auf System 2 mit einer nativen Linux Anwendung. Die benötigte Zeit für Betriebssystemthreads sank um ungefähr die Hälfte.
+
+![GraalVM Vergleich zwischen allen Threadtypen](images/graalVM/System2_all_spaced.png)<br>
+*Ergebnisse für die native Anwendung unter Linux (System 2).*
+
+Die Ergebnisse für virtuelle Threads und Threadpools haben sich durch den Einsatz der nativen Anwendung allerdings kaum verändert. Lediglich bei niedrigeren Threadzahlen lässt sich eine Verbesserung erkennen.
+
+![GraalVM Vergleich zwischen Virtual und Pooled Threads](images/graalVM/System2_part_spaced.png)<br>
+*Ergebnisse für Virtual Threads und Threadpools mit einer nativen Anwendung unter Linux (System 2).*
+
+![GraalVM Ausschnitt Vergleich zwischen Virtual und Pooled Threads](images/graalVM/System2_part_short2_spaced.png)<br>
+*Ausschnitt aus den Ergebnissen für Virtual Threads und Threadpools mit einer nativen Anwendung unter Linux (System 2).*
 
 ## Fazit
 
@@ -111,3 +140,5 @@ System 1 CPU auf 100%
 
 System 2 exe CPU auf 35-40%
 jar auf 60-85%
+
+noch Part zu Problem einfügen
