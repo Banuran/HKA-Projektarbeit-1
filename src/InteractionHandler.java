@@ -116,7 +116,7 @@ public class InteractionHandler {
 
     public void initRemainingRuns(int totalNumberOfRuns) {
         remainingRuns = totalNumberOfRuns;
-        System.out.format("%s %d", remainingRunsText, remainingRuns);
+        System.out.format("%s %d          ", remainingRunsText, remainingRuns);
     }
     public void updateRemainingRuns() {
         this.updateRemainingRuns(1);
