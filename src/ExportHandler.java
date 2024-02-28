@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,13 @@ public class ExportHandler {
             filePath = defaultFilepathWithoutEnding;
             filePath += "_";
             filePath += new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
+            filePath += defaultFilepathEnding;
+        } else if (filePath.endsWith(File.separator) || filePath.endsWith("/") || filePath.endsWith("\\")) {
+            filePath += defaultFilepathWithoutEnding;
+            filePath += "_";
+            filePath += new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
+            filePath += defaultFilepathEnding;
+        } else if (!filePath.endsWith(defaultFilepathEnding)) {
             filePath += defaultFilepathEnding;
         }
 
