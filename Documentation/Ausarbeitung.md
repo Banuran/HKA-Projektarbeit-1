@@ -2,9 +2,9 @@
 
 In dieser Arbeit werden verschiedene Threadtypen, die in Java bereitgestellt werden, verglichen. Dazu wird ein Programm geschrieben, dass mehrere Threads startet und die benötigte Zeit misst, bis alle Threads beendet wurden. Anhand dieser Messgröße wird die Performance der verschiedenen Threadtypen verglichen.
 
-## Erläuterung der verschiedenen Threadtypen
-
 ## Eckdaten der benutzten Systeme
+
+Das entwickelte Programm werden auf verschiedenen Systemen ausgeführt und Ergebnisse gemessen. Die Eckdaten der verschiedenen Systeme können der Tabelle entnommen werden.
 
 |                 | System 1            | System 2   | System 3         |
 |-----------------|---------------------|------------|------------------|
@@ -101,8 +101,7 @@ Nach der Installation kann dann die native Anwendung generiert werden. Dafür st
 
 ## Aufgetretene Schwierigkeiten
 
-**FEHLT NOCH**
-nur kleiner Ausschnitt betrachtet, angenommen Unterschied liegt in Initialisierung zunächst nur klein falsch angenommen, dass Pooled Threads schlechter
+Während der Entwicklung und ersten Tests wurde nur eine geringe Zahl an Threads verwendet. Dabei wurde wie auch in der Auswertung beschrieben erkannt, dass die virtuellen Threads eine geringere Laufzeit aufweisen als die Threadpools. Weiterhin lag die Differenz zwischen diesen beiden Threadtypen für jeden Messpunkt ungefähr auf derselben Höhe. Daher wurde die Theorie entwickelt, dass virtuelle Threads und Threadpools dieselbe Performance aufweisen. Der Unterschied wurde damit erklärt, das Threadpools etwas länger für die Initialisierung benötigen. Als eine größere Zahl von Threads getestet wurde, musste diese Hypothese verworfen werden.
 
 Bei der Umwandlung der jar Datei in eine native Windowsanwendung kam es zunächst zu Problemen. Soll GraalVM native Anwendungen für Windows erstellen, wird dafür wie beschrieben zusätzlich eine Installation von Visual Studio. Die ersten Versuche eine native Anwendung zu erstellen, schlugen jedoch fehl. Die folgende Fehlermeldung wurde angezeigt.
 
@@ -135,7 +134,7 @@ Die Ergebnisse für virtuelle Threads und Threadpools haben sich durch den Einsa
 
 ## Fazit
 
-Nach Auswertung der Ergebnisse muss vom Einsatz von Betriebssystemthreads abgeraten werden. Diese wiesen in allen Systemen eine deutlich schlechtere Laufzeit auf als die alternativen Threadtypen. Bestehende Anwendungen, die diese nutzen, sollten umgestellt werden. Aufgrund der ähnlichen Verwendung bieten sich hier die virtuellen Threads an. 
+Nach Auswertung der Ergebnisse muss vom Einsatz von Betriebssystemthreads abgeraten werden. Diese wiesen in allen Systemen eine deutlich schlechtere Laufzeit auf als die alternativen Threadtypen. Bestehende Anwendungen, die diese nutzen, sollten umgestellt werden. Aufgrund der ähnlichen Verwendung bieten sich hier die virtuellen Threads an.
 
 Zu der Frage, ob virtuelle Threads oder Threadpools eingesetzt werden sollten, lässt sich leider keine klare Aussage treffen. Die Ergebnisse von System 1 und System 2 zeigen das Threadpools vor allem bei hohen Threadzahlen eine bessere Performance aufweisen. Bei einer niedrigeren Anzahl an Threads weisen jedoch virtuelle Threads eine leicht bessere Performance auf. Bei Anwendungen bei denen mit hohen Spitzen an Threads zu rechnen könnte es sich daher lohnen mit einem einmal erstellten Threadpool zu arbeiten. Anwendungen die auf ihre Laufzeit gesehen viele Threads starten, diese sich jedoch über die Laufzeit verteilen, könnten dagegen von virtuellen Threads profitieren.
 
@@ -143,15 +142,4 @@ Dabei ist auch zu bedenken, dass die Verwaltung eines Threadpools etwas aufwänd
 
 Hier besteht ein Ansatzpunkt für weitergehende Untersuchungen. Es könnte untersucht werden, ob sich diese Vermutung für Systeme die auf starke Nebenläufigkeit ausgelegt sind bestätigt. Je nach Quelle laufen ein großer Teil oder die Mehrheit der Server mit dem Betriebssystem Linux ([[1]](https://6sense.com/tech/server-and-desktop-os), [[2]](https://www.t4.ai/industry/server-operating-system-market-share), [[3]](https://www.fortunebusinessinsights.com/server-operating-system-market-106601)). Für Serveranwendungen könnte sich daher ein genauerer Blick auf die Performance unter Linux lohnen. Obwohl das im Test verwendete System 2 mit Linux schwächer als System 1 war, war der Unterschied zwischen virtuellen Threads und Threadpools geringer als auf System 1. Auf aktuellerer Hardware könnten die Unterschiede zwischen diesen beiden Threadtypen ebenfalls irrelevant sein. Zudem könnte untersucht werden, ob es Unterschiede zwischen verschiedenen Distributionen gibt.
 
-GraalVM
-eventeull Optionen? weiterführende Unteruschung
-
-## Ausblick
-System 1 CPU auf 100%
-
-System 2 exe CPU auf 35-40%
-jar auf 60-85%
-
-noch Part zu Problem einfügen
-
-Fazit Beispiel für virtuelle Threads und Betriebssystemthreads einfügen
+Vom Einsatz von GraalVM unter Windows muss nach den erzielten Ergebnissen abgeraten werden. Die Performance mit der nativen Anwendung war deutlich schlechter als mit der Jar-Datei. Unter Linux kann GraalVM eingesetzt werden. Die Performance verbessert sich dadurch jedoch nur marginal. Hier könnte ebenfalls angesetzt werden und weiterführend untersucht werden, ob durch andere Optionen doch eine Verbesserung erzielt werden kann.
