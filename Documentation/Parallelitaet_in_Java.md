@@ -6,13 +6,13 @@ In dieser Arbeit werden verschiedene Threadtypen, die in Java bereitgestellt wer
 
 Das entwickelte Programm werden auf verschiedenen Systemen ausgeführt und Ergebnisse gemessen. Die Eckdaten der verschiedenen Systeme können der Tabelle entnommen werden.
 
-|                 | System 1            | System 2   | System 3         |
-|-----------------|---------------------|------------|------------------|
-| Art des Systems | Laptop              | Laptop     | Desktop-PC       |
-| Betriebssystem  | Windows 11          | Linux Mint | Windows 11       |
-| Version         | 23H2 22631.3155     |            | 23H2 22631.3007  |
-| CPU             | Intel Core i5-8250U |            | AMD Ryzen 5 3600 |
-| CPU-Kerne       | 4                   |            | 6                |
+|                 | System 1            | System 2            | System 3         |
+|-----------------|---------------------|---------------------|------------------|
+| Art des Systems | Laptop              | Laptop              | Desktop-PC       |
+| Betriebssystem  | Windows 11          | Linux Mint          | Windows 11       |
+| Version         | 23H2 22631.3155     | 20.2 "Uma" Cinnamon | 23H2 22631.3007  |
+| CPU             | Intel Core i5-8250U | Intel Core i3-330M  | AMD Ryzen 5 3600 |
+| CPU-Kerne       | 4                   | 2                   | 6                |
 
 ## Erläuterung des Programms
 
