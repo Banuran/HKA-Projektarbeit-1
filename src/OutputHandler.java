@@ -25,6 +25,11 @@ public class OutputHandler {
         System.out.format("+---------+----------------------------+----------------------------+----------------------------+%n");
     }
 
+    /**
+     * Convert timestamp to string so that is readable by humans
+     * @param time timestamp to convert
+     * @return time in readable form
+     */
     private String getTimeReadable(long time) {
         Duration duration = Duration.ofNanos(time);
 

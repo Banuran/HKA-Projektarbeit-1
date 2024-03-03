@@ -16,18 +16,20 @@ public class ExportHandler {
             throw new RuntimeException("Nothing to export. The list is empty.");
         }
 
-        // set default fileName if none is provided
         if (filePath == null || filePath.trim().isEmpty()) {
+            // set default fileName if none is provided
             filePath = defaultFilepathWithoutEnding;
             filePath += "_";
             filePath += new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
             filePath += defaultFilepathEnding;
         } else if (filePath.endsWith(File.separator) || filePath.endsWith("/") || filePath.endsWith("\\")) {
+            // add filename if only path is provided
             filePath += defaultFilepathWithoutEnding;
             filePath += "_";
             filePath += new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
             filePath += defaultFilepathEnding;
         } else if (!filePath.endsWith(defaultFilepathEnding)) {
+            // add file ending if none is provided
             filePath += defaultFilepathEnding;
         }
 

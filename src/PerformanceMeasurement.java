@@ -29,17 +29,21 @@ public class PerformanceMeasurement {
         int[] numsThreads = config.getNumsThreads();
         List<PerformanceResult> performanceResultList = new ArrayList<>();
 
+        // calculate total runs for output
         int totalRuns = numRepeats * numsThreads.length * ThreadType.values().length;
         interactionHandler.initRemainingRuns(totalRuns);
 
         for (int numThreads : numsThreads) {
             for (ThreadType threadType : ThreadType.values()) {
                 long totalTime = 0;
+                // repeat measurement multiple times
                 for (int i = 0; i < numRepeats; i++) {
                     totalTime += startThreads(numThreads, threadType);
                     interactionHandler.updateRemainingRuns();
                 }
+                // calculate the time for all repitions
                 long avgTime = totalTime / numRepeats;
+                // add result to list
                 PerformanceResult res = new PerformanceResult(threadType, numThreads, avgTime);
                 performanceResultList.add(res);
             }
@@ -48,6 +52,13 @@ public class PerformanceMeasurement {
         return performanceResultList;
     }
 
+    /**
+     * Wrapper, different methods are used for different Thread types
+     * @param numThreads number of threads
+     * @param threadType type of threads to be used
+     * @return the elapsed time
+     * @throws InterruptedException
+     */
     private long startThreads(int numThreads, ThreadType threadType) throws InterruptedException {
         if (threadType == ThreadType.POOLED) {
             return startPooledThreads(numThreads);
@@ -56,6 +67,13 @@ public class PerformanceMeasurement {
         }
     }
 
+    /**
+     * Start threads of type virtual or platform
+     * @param numThreads number of threads
+     * @param threadType type of threads to be used
+     * @return the elapsed time
+     * @throws InterruptedException
+     */
     private long startSimpleThreads(int numThreads, ThreadType threadType) throws InterruptedException {
         Thread[] threads = new Thread[numThreads];
 
@@ -70,6 +88,7 @@ public class PerformanceMeasurement {
             threads[i] = thread;
         }
 
+        // wait for all threads to finish
         for (Thread thread : threads) {
             thread.join();
         }
@@ -79,6 +98,12 @@ public class PerformanceMeasurement {
         return end-start;
     }
 
+    /**
+     * start Threadpools
+     * @param numThreads number of threads
+     * @return the elapsed time
+     * @throws InterruptedException
+     */
     private long startPooledThreads(int numThreads) throws InterruptedException {
 
         long start = System.nanoTime();
