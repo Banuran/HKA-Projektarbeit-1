@@ -8,7 +8,6 @@ Das entwickelte Programm werden auf verschiedenen Systemen ausgeführt und Ergeb
 
 |                 | System 1            | System 2            | System 3         |
 |-----------------|---------------------|---------------------|------------------|
-| Art des Systems | Laptop              | Laptop              | Desktop-PC       |
 | Betriebssystem  | Windows 11          | Linux Mint          | Windows 11       |
 | Version         | 23H2 22631.3155     | 20.2 "Uma" Cinnamon | 23H2 22631.3007  |
 | CPU             | Intel Core i5-8250U | Intel Core i3-330M  | AMD Ryzen 5 3600 |
