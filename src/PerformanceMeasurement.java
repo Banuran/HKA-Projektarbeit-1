@@ -1,9 +1,11 @@
+import Runnables.BlockingSemaphore;
 import Runnables.Factorization;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 enum ThreadType {
@@ -12,11 +14,20 @@ enum ThreadType {
     POOLED
 }
 
+enum RunnableType {
+    FACTORIZATION,
+    BLOCKINGSEMAPHORE
+}
+
 public class PerformanceMeasurement {
 
     private final InteractionHandler interactionHandler;
     private final PerformanceMeasurementConfig config;
     private final int cores = Runtime.getRuntime().availableProcessors();
+
+    private final int numSemaphorePermits = 2;
+    private Semaphore semaphore = new Semaphore(numSemaphorePermits);
+    private RunnableType runnableType = RunnableType.FACTORIZATION;
 
     public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
@@ -84,9 +95,9 @@ public class PerformanceMeasurement {
         for (int i = 0; i < numThreads; i++) {
             Thread thread;
             if (threadType == ThreadType.VIRTUAL)
-                thread = Thread.ofVirtual().start(new Factorization());
+                thread = Thread.ofVirtual().start(this.getRunnable(runnableType));
             else
-                thread = Thread.ofPlatform().start(new Factorization());
+                thread = Thread.ofPlatform().start(this.getRunnable(runnableType));
             threads[i] = thread;
         }
 
@@ -112,7 +123,7 @@ public class PerformanceMeasurement {
         ExecutorService executorService = Executors.newFixedThreadPool(cores);
 
         for (int i = 0; i < numThreads; i++) {
-            executorService.submit(new Factorization());
+            executorService.submit(this.getRunnable(runnableType));
         }
 
         executorService.shutdown();
@@ -144,5 +155,14 @@ public class PerformanceMeasurement {
         for (Thread thread : threads) {
             thread.join();
         }
+    }
+
+    private Runnable getRunnable(RunnableType type) {
+
+        return switch(type) {
+            case FACTORIZATION -> new Factorization();
+            case BLOCKINGSEMAPHORE -> new BlockingSemaphore(this.semaphore);
+            case null, default -> new Factorization();
+        };
     }
 }
