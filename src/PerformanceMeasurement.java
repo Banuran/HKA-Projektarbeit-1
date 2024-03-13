@@ -25,6 +25,8 @@ public class PerformanceMeasurement {
 
     public List<PerformanceResult> startMeasurementSeries() throws InterruptedException {
 
+        this.warmup();
+
         int numRepeats = config.getNumRepeats();
         int[] numsThreads = config.getNumsThreads();
         List<PerformanceResult> performanceResultList = new ArrayList<>();
@@ -123,5 +125,24 @@ public class PerformanceMeasurement {
         long end = System.nanoTime();
 
         return end-start;
+    }
+
+    /**
+     * Run some threads to warm up the Java Virtual Machine
+     * @throws InterruptedException
+     */
+    private void warmup() throws InterruptedException {
+        int numWarmupThreads = 1000;
+        Thread[] threads = new Thread[numWarmupThreads];
+
+        for (int i = 0; i < numWarmupThreads; i++) {
+            Thread thread = Thread.ofVirtual().start(new Factorization());
+            threads[i] = thread;
+        }
+
+        // wait for all threads to finish
+        for (Thread thread : threads) {
+            thread.join();
+        }
     }
 }
