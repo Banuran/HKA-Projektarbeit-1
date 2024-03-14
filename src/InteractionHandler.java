@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Contains methods where user input is processed
@@ -30,6 +31,7 @@ public class InteractionHandler {
         if (userInput.equalsIgnoreCase("y")) {
             config = this.changeConfigNumsThreadsRequest(config, scanner);
             config = this.changeNumRepeatsRequest(config, scanner);
+            config = this.changeRunnableTypeRequest(config, scanner);
 
             System.out.format("%nChanged Config:%n%s%n", config.toString());
         }
@@ -101,6 +103,50 @@ public class InteractionHandler {
                     int intValue = Integer.parseInt(userInput.trim());
                     config.setNumRepeats(intValue);
                     break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input");
+                }
+            }
+        }
+
+        return config;
+    }
+
+    /**
+     * Validate input for runnable type
+     * @param config the current config
+     * @param scanner input scanner
+     * @return the changed config or current config if nothing is changed
+     */
+    public PerformanceMeasurementConfig changeRunnableTypeRequest(PerformanceMeasurementConfig config, Scanner scanner) {
+        List<String> enumNames = Stream.of(RunnableType.values())
+                .map(Enum::name)
+                .toList();
+
+        for (int i = 0; i < enumNames.size(); i++) {
+            System.out.println("[" + i + "] " + enumNames.get(i));
+        }
+
+        while (true) {
+            System.out.println("Change Runnble to run");
+            System.out.println("Enter a corresponding integer or press enter to use the default:");
+
+            String userInput = scanner.nextLine();
+            String firstChar = !userInput.isEmpty() ? userInput.substring(0, 1) : "";
+
+            if (firstChar.isEmpty()) {
+                break;
+            } else {
+                try {
+                    int intValue = Integer.parseInt(userInput.trim());
+
+                    if (intValue < enumNames.size() && intValue >= 0) {
+                        config.setRunnableType(RunnableType.valueOf(enumNames.get(intValue)));
+                        break;
+                    } else {
+                        System.out.println("Invalid input");
+                    }
+
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input");
                 }
