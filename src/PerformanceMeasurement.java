@@ -1,5 +1,6 @@
 import Runnables.BlockingSemaphore;
 import Runnables.Factorization;
+import Runnables.FileOperations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class PerformanceMeasurement {
 
         this.warmup();
 
+        if (config.getRunnableType() == RunnableType.FILEOPERATIONS) FileOperations.createSubdirectory();
+
         int numRepeats = config.getNumRepeats();
         int[] numsThreads = config.getNumsThreads();
         List<PerformanceResult> performanceResultList = new ArrayList<>();
@@ -58,6 +61,8 @@ public class PerformanceMeasurement {
                 performanceResultList.add(res);
             }
         }
+
+        if (config.getRunnableType() == RunnableType.FILEOPERATIONS) FileOperations.deleteSubdirectory();
 
         return performanceResultList;
     }
@@ -162,6 +167,7 @@ public class PerformanceMeasurement {
         return switch(type) {
             case FACTORIZATION -> new Factorization();
             case BLOCKINGSEMAPHORE -> new BlockingSemaphore(this.semaphore);
+            case FILEOPERATIONS -> new FileOperations();
             case null, default -> new Factorization();
         };
     }
