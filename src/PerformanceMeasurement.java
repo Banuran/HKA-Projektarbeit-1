@@ -14,11 +14,6 @@ enum ThreadType {
     POOLED
 }
 
-enum RunnableType {
-    FACTORIZATION,
-    BLOCKINGSEMAPHORE
-}
-
 public class PerformanceMeasurement {
 
     private final InteractionHandler interactionHandler;
