@@ -9,14 +9,8 @@ import java.nio.file.Paths;
 
 public class FileOperations implements Runnable {
 
-    private String subdirectoryName = "file_operations";
+    private static final String subdirectoryName = "file_operations";
     private final Runnable runCalc = new Factorization();
-
-    public FileOperations() {
-    }
-    public FileOperations(String subdirectory) {
-        this.subdirectoryName = subdirectory;
-    }
 
     @Override
     public void run() {
@@ -64,7 +58,7 @@ public class FileOperations implements Runnable {
         return builder.toString();
     }
 
-    private void createSubdirectory() {
+    public static void createSubdirectory() {
         File directory = new File(subdirectoryName);
 
         if (directory.exists() && directory.isDirectory()) {
@@ -78,7 +72,7 @@ public class FileOperations implements Runnable {
         }
     }
 
-    public void deleteSubdirectory() {
+    public static void deleteSubdirectory() {
         File directory = new File(subdirectoryName);
 
         // Check if the directory exists and is empty
