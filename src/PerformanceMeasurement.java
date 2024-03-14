@@ -29,6 +29,9 @@ public class PerformanceMeasurement {
     private Semaphore semaphore = new Semaphore(numSemaphorePermits);
     private RunnableType runnableType = RunnableType.FACTORIZATION;
 
+    // do not run platform threads to speed up runtime if true
+    private final boolean fakePlatform = true;
+
     public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
         this.config = config;
@@ -89,6 +92,9 @@ public class PerformanceMeasurement {
      */
     private long startSimpleThreads(int numThreads, ThreadType threadType) throws InterruptedException {
         Thread[] threads = new Thread[numThreads];
+
+        // Do not run platform threads if flag is active to improve runtime
+        if (threadType == ThreadType.PLATFORM && fakePlatform) return 0;
 
         long start = System.nanoTime();
 
