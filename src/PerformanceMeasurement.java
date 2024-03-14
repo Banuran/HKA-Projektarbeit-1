@@ -22,7 +22,6 @@ public class PerformanceMeasurement {
 
     private final int numSemaphorePermits = 2;
     private Semaphore semaphore = new Semaphore(numSemaphorePermits);
-    private RunnableType runnableType = RunnableType.FACTORIZATION;
 
     // do not run platform threads to speed up runtime if true
     private final boolean fakePlatform = true;
@@ -96,9 +95,9 @@ public class PerformanceMeasurement {
         for (int i = 0; i < numThreads; i++) {
             Thread thread;
             if (threadType == ThreadType.VIRTUAL)
-                thread = Thread.ofVirtual().start(this.getRunnable(runnableType));
+                thread = Thread.ofVirtual().start(this.getRunnable(config.getRunnableType()));
             else
-                thread = Thread.ofPlatform().start(this.getRunnable(runnableType));
+                thread = Thread.ofPlatform().start(this.getRunnable(config.getRunnableType()));
             threads[i] = thread;
         }
 
@@ -124,7 +123,7 @@ public class PerformanceMeasurement {
         ExecutorService executorService = Executors.newFixedThreadPool(cores);
 
         for (int i = 0; i < numThreads; i++) {
-            executorService.submit(this.getRunnable(runnableType));
+            executorService.submit(this.getRunnable(config.getRunnableType()));
         }
 
         executorService.shutdown();
