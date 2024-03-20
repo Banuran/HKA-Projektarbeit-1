@@ -142,3 +142,11 @@ Dabei ist auch zu bedenken, dass die Verwaltung eines Threadpools etwas aufwänd
 Hier besteht ein Ansatzpunkt für weitergehende Untersuchungen. Es könnte untersucht werden, ob sich diese Vermutung für Systeme die auf starke Nebenläufigkeit ausgelegt sind bestätigt. Je nach Quelle laufen ein großer Teil oder die Mehrheit der Server mit dem Betriebssystem Linux ([[1]](https://6sense.com/tech/server-and-desktop-os), [[2]](https://www.t4.ai/industry/server-operating-system-market-share), [[3]](https://www.fortunebusinessinsights.com/server-operating-system-market-106601)). Für Serveranwendungen könnte sich daher ein genauerer Blick auf die Performance unter Linux lohnen. Obwohl das im Test verwendete System 2 mit Linux schwächer als System 1 war, war der Unterschied zwischen virtuellen Threads und Threadpools geringer als auf System 1. Auf aktuellerer Hardware könnten die Unterschiede zwischen diesen beiden Threadtypen ebenfalls irrelevant sein. Zudem könnte untersucht werden, ob es Unterschiede zwischen verschiedenen Distributionen gibt.
 
 Vom Einsatz von GraalVM unter Windows muss nach den erzielten Ergebnissen abgeraten werden. Die Performance mit der nativen Anwendung war deutlich schlechter als mit der Jar-Datei. Unter Linux kann GraalVM eingesetzt werden. Die Performance verbessert sich dadurch jedoch nur marginal. Hier könnte ebenfalls angesetzt werden und weiterführend untersucht werden, ob durch andere Optionen doch eine Verbesserung erzielt werden kann.
+
+## Nachträgliche Änderungen
+
+### Warm-Up
+
+Vor der eigentlichen Messreihe wird nun ein Warm-Up der Java Virtual Machine (JVM) ausgeführt. Die Annahme dabei ist, dass die ersten Messergebnisse durch ein fehlendes Warm-Up verfälscht werden. Daher werden jetzt zuerst einige Threads gestartet, die nicht in die Messungen mit einfließen. Durch das Warm-Up ändert sich jedoch nichts an der grundlegende Verteilung. 
+
+### Blocking Operations
