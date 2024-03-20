@@ -32,14 +32,6 @@ public class FileOperations implements Runnable {
             throw new RuntimeException(e);
         }
 
-        // Reopen file and append another string
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            String randomString = generateRandomString(65536);
-            writer.write(randomString);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         // Delete the file
         try {
             Files.deleteIfExists(Paths.get(filePath));
