@@ -150,3 +150,5 @@ Vom Einsatz von GraalVM unter Windows muss nach den erzielten Ergebnissen abgera
 Vor der eigentlichen Messreihe wird nun ein Warm-Up der Java Virtual Machine (JVM) ausgeführt. Die Annahme dabei ist, dass die ersten Messergebnisse durch ein fehlendes Warm-Up verfälscht werden. Daher werden jetzt zuerst einige Threads gestartet, die nicht in die Messungen mit einfließen. Durch das Warm-Up ändert sich jedoch nichts an der grundlegende Verteilung. 
 
 ### Blocking Operations
+
+Eine weitere Idee war, dass blockierende Operationen zu Unterschieden zwischen Threadpools und virtuellen Threads führen könnten. Da bei Threadpools nur eine geringe festgelegte Zahl an Threads parallel ablaufen, können blockierende
