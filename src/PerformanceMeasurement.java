@@ -25,7 +25,7 @@ public class PerformanceMeasurement {
     private Semaphore semaphore = new Semaphore(numSemaphorePermits);
 
     // do not run platform threads to speed up runtime if true
-    private final boolean fakePlatform = true;
+    private final boolean fakePlatform = false;
 
     public PerformanceMeasurement(InteractionHandler interactionHandler, PerformanceMeasurementConfig config) {
         this.interactionHandler = interactionHandler;
