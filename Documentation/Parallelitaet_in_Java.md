@@ -151,4 +151,47 @@ Vor der eigentlichen Messreihe wird nun ein Warm-Up der Java Virtual Machine (JV
 
 ### Blocking Operations
 
-Eine weitere Idee war, dass blockierende Operationen zu Unterschieden zwischen Threadpools und virtuellen Threads führen könnten. Da bei Threadpools nur eine geringe festgelegte Zahl an Threads parallel ablaufen, können blockierende
+Eine weitere Idee war, dass blockierende Operationen zu Unterschieden zwischen Threadpools und virtuellen Threads führen könnten. Da bei Threadpools nur eine geringe festgelegte Zahl an Threads parallel ablaufen, könnten blockierende Aufrufe, wie z.B. Dateisystemzugriffe, den Threadpool an sich blockieren, wenn alle Threads im Pool warten. Die Idee hier ist das bei virtuellen Threads die Ressourcenverwaltung besser funktioniert, und während dem warten andere Threads laufen können. 
+
+Um dies zu testen wurden zwei zusätzliche Funktionen implementiert. Einmal wird eine künstliche Knappheit mit einer Semaphore erzeugt, bei der zweiten Funktion wird ein tatsächlicher Dateizugriff durchgeführt. Bei der ersten Funktion führen die Threads zunächst wie gewohnt die Faktorisierung durch. Nach der Berechnung versuchen die Threads eine Sperre bei einer Semaphore anzumelden. Sind noch Kontigente frei, so wird der Programmablauf fortgeführt. Erhält ein Thread kein Kontigent mehr, muss er warten bis ein anderer Thread seine Sperre freigibt. Dadurch laufen maximal x Threads parallel. Nach dem ein Thread eine Sperre erlangt hat, führt er abermals eine Faktorisierung durch und gibt die Sperre dann wieder frei.
+Bei der zweiten Funktion führen die Threads wieder zunächst eine Faktorisierung durch. Anschließend erstellen sie eine eigene Datei, die mit einem zufälligen String beschrieben wird. Diese Datei wird nachdem sie geschlossen wurde wieder gelöscht.
+
+#### Ergebnisse für die Semaphore
+
+Mit der Semaphore ändert sich der Abstand zwischen virtuellen Threads und Threadpools für die höchste Threadzahl bei System 1 kaum. Bei verschiedenen Durchläufen verbesserte und verschlechterte er sich nur marginal. Der Vorteil für Threadpools tritt allerdings später ein als bei der Faktorisierung. Bei der zweithöchsten Threadanzahl haben virtuelle Threads noch einen Vorteil von mehreren hundert Millisekunden.
+
+![System1 Laufzeit mit Semaphore](images/data/additional/System1_BlockingSemaphore_part_spaced.png)<br>
+*Ergebnisse mit einer künstlichen Verknappung durch eine Semaphore unter Windows (System 1). Durch das andere Skalenniveau (im Vergleich zur Faktorisierung) wirken die Ergebnisse näher beieinander als sie tatsächlich sind.*
+
+Für System 2 konnte dagegen eine deutliche Verbesserung gegenüber den Threadpools erzielt werden. Der Vorteil der virtuellen Threads liegt bei nahezu einer Sekunde.
+
+![System2 Laufzeit mit Semaphore](images/data/additional/System2_BlockingSemaphore_part_spaced.png)<br>
+*Ergebnisse mit einer künstlichen Verknappung durch eine Semaphore unter Linux (System 2).*
+
+Auch bei System 3 weisen die virtuellen Threads eine geringere Laufzeit auf als Threadpools. Dabei nimmt der Vorteil für höhere Threadzahlen zu.
+
+![System3 Laufzeit mit Semaphore](images/data/additional/System3_BlockingSemaphore_part_spaced.png)<br>
+*Ergebnisse mit einer künstlichen Verknappung durch eine Semaphore unter Windows (System 3).*
+
+#### Ergebnisse für die Dateioperationen
+
+Aufgrund der hohen Laufzeit der Funktion mit Dateioperationen wird eine geringere Zahl an Threads betrachtet. Bei System 1 kann kein Vorteil von virtuellen Threads gegenüber Threadpools erkannt werden. Sie weisen für alle Threadanzahlen eine höhere Laufzeit auf.
+
+![System1 Laufzeit mit Dateioperationen](images/data/additional/System1_FileOperations_part_spaced.png)<br>
+*Ergebnisse mit Dateioperationen unter Windows (System 1).*
+
+Betrachtet man die Differenz in einem eigenen Diagramm ist ersichtlich, dass es keinen Trend gibt. Die Differenz springt stark umher.
+
+![System1 Differenz mit Dateioperationen](images/data/additional/System1_FileOperations_difference.png)<br>
+*Differenz zwischen der Laufzeit von virtuellen Threads und Threadpools mit Dateioperationen unter Windows (System 1).*
+
+Für System 2 ist die Laufzeit bei virtuellen Threads und Threadpools mit Dateioperationen praktisch identisch.
+
+![System2 Laufzeit mit Dateioperationen](images/data/additional/System2_FileOperations_part_spaced.png)<br>
+*Ergebnisse mit Dateioperationen unter Linux (System 2).*
+
+Auch bei System 3 ist die Laufzeit bei virtuellen Threads und Threadpools nahezu identisch, wobei Threadpools eine etwas geringere Laufzeit haben haben. Es gibt jedoch bei System 3 kaum Unterschiede zu der einfachen Faktorisierung. 
+
+![System3 Laufzeit mit Dateioperationen](images/data/additional/System3_FileOperations_part_spaced.png)<br>
+*Ergebnisse mit Dateioperationen unter Windows (System 3).*
+
