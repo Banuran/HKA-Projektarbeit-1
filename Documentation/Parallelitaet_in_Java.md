@@ -173,6 +173,14 @@ Auch bei System 3 weisen die virtuellen Threads eine geringere Laufzeit auf als 
 ![System3 Laufzeit mit Semaphore](images/data/additional/System3_BlockingSemaphore_part_spaced.png)<br>
 *Ergebnisse mit einer künstlichen Verknappung durch eine Semaphore unter Windows (System 3).*
 
+Für System 3 wurde noch einmal eine erweiterte Messung durchgeführt. Hier ist ersichtlich, dass sich der Vorteil von virtuellen Threads fortsetzt. Die Differenz liegt für höhere Threadzahlen schnell im Sekundenbereich.
+
+![System3 Laufzeit mit Semaphore mit höheren Threadzahlen](images/data/additional/System3_BlockingSemaphore_extended.png)<br>
+*Ergebnisse mit einer künstlichen Verknappung durch eine Semaphore unter Windows (System 3). Die Messung wurde mit höheren Threadzahlen durchgeführt*
+
+![System3 Differenz mit Semaphore mit höheren Threadzahlen](images/data/additional/System3_BlockingSemaphore_extended_difference.png)<br>
+*Differenz zwischen virtuellen threads und Threadpools mit einer künstlichen Verknappung durch eine Semaphore unter Windows (System 3). Die Messung wurde mit höheren Threadzahlen durchgeführt*
+
 #### Ergebnisse für die Dateioperationen
 
 Aufgrund der hohen Laufzeit der Funktion mit Dateioperationen wird eine geringere Zahl an Threads betrachtet. Bei System 1 kann kein Vorteil von virtuellen Threads gegenüber Threadpools erkannt werden. Sie weisen für alle Threadanzahlen eine höhere Laufzeit auf.
