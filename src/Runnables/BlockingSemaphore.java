@@ -7,9 +7,8 @@ public class BlockingSemaphore implements Runnable {
     private final Runnable runCalc;
 
     public BlockingSemaphore(Semaphore semaphore) {
-        this.semaphore = semaphore; // 19111680
-        this.runCalc = new Factorization(); // 894682
-        //this.runCalc2 = new Factorization(); // 315226
+        this.semaphore = semaphore;
+        this.runCalc = new Factorization();
     }
 
     @Override
