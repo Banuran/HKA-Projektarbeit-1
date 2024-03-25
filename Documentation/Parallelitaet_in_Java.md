@@ -198,7 +198,7 @@ Für System 2 ist die Laufzeit bei virtuellen Threads und Threadpools mit Dateio
 ![System2 Laufzeit mit Dateioperationen](images/data/additional/System2_FileOperations_part_spaced.png)<br>
 *Ergebnisse mit Dateioperationen unter Linux (System 2).*
 
-Auch bei System 3 ist die Laufzeit bei virtuellen Threads und Threadpools nahezu identisch, wobei Threadpools eine etwas geringere Laufzeit haben haben. Es gibt jedoch bei System 3 kaum Unterschiede zu der einfachen Faktorisierung. 
+Auch bei System 3 ist die Laufzeit bei virtuellen Threads und Threadpools nahezu identisch, wobei Threadpools eine etwas geringere Laufzeit haben. Es gibt jedoch bei System 3 kaum Unterschiede zu der einfachen Faktorisierung. 
 
 ![System3 Laufzeit mit Dateioperationen](images/data/additional/System3_FileOperations_part_spaced.png)<br>
 *Ergebnisse mit Dateioperationen unter Windows (System 3).*
