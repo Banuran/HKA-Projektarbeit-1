@@ -188,7 +188,7 @@ Aufgrund der hohen Laufzeit der Funktion mit Dateioperationen wird eine geringer
 ![System1 Laufzeit mit Dateioperationen](images/data/additional/System1_FileOperations_part_spaced.png)<br>
 *Ergebnisse mit Dateioperationen unter Windows (System 1).*
 
-Betrachtet man die Differenz in einem eigenen Diagramm ist ersichtlich, dass es keinen Trend gibt. Die Differenz springt stark umher.
+Betrachtet man die Differenz in einem eigenen Diagramm ist ersichtlich, dass es keinen Trend gibt. Die Differenz springt stark umher. Es gibt also vermutlich noch andere Faktoren, die die Laufzeiten bei System 1 beeinflussen.
 
 ![System1 Differenz mit Dateioperationen](images/data/additional/System1_FileOperations_difference.png)<br>
 *Differenz zwischen der Laufzeit von virtuellen Threads und Threadpools mit Dateioperationen unter Windows (System 1).*
