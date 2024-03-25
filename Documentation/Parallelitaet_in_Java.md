@@ -145,6 +145,8 @@ Vom Einsatz von GraalVM unter Windows muss nach den erzielten Ergebnissen abgera
 
 ## Nachträgliche Änderungen
 
+Aus Zeitgründen wurde bei den folgenden Messungen nur virtuelle Threads und Threadpools betrachtet.
+
 ### Warm-Up
 
 Vor der eigentlichen Messreihe wird nun ein Warm-Up der Java Virtual Machine (JVM) ausgeführt. Die Annahme dabei ist, dass die ersten Messergebnisse durch ein fehlendes Warm-Up verfälscht werden. Daher werden jetzt zuerst einige Threads gestartet, die nicht in die Messungen mit einfließen. Durch das Warm-Up ändert sich jedoch nichts an der grundlegende Verteilung. 
